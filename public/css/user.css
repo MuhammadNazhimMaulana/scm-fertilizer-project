@@ -1,0 +1,406 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+
+.light {
+  --warna-utama: #64bcf4;
+  --warn-hover: #5bacdf;
+  --warna-background: #f1f8fc;
+  --hitam-satu: #312f3a;
+  --hitam-dua: #45424b;
+  --cerah-satu: #919191;
+  --cerah-dua: #aaa;
+}
+
+.dark {
+  --warna-utama: #64bcf4;
+  --warn-hover: #5bacdf;
+  --warna-background: #192e3a;
+  --hitam-satu: #f3f3f3;
+  --hitam-dua: #fff;
+  --cerah-satu: #ccc;
+  --cerah-dua: #e7e3e3;
+}
+
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+img {
+  width: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+.big-wrapper {
+  position: relative;
+  padding: 1.7rem 0 2rem;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  background-color: var(--warna-background);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.stop-scroll {
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Header (Navbar) */
+.kontainer {
+  position: relative;
+  max-width: 81rem;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 3rem;
+  z-index: 10;
+}
+
+header {
+  position: relative;
+  z-index: 21;
+}
+
+header .kontainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.logo img {
+  width: 40px;
+  margin-right: 0.6rem;
+  margin-top: -0.6rem;
+}
+
+.logo h3 {
+  color: var(--hitam-dua);
+  font-size: 1.55rem;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.links ul {
+  display: flex;
+  list-style: none;
+  align-items: center;
+}
+
+.links a {
+  color: var(--cerah-dua);
+  margin-left: 4.5rem;
+  display: inline-block;
+  transition: 0.3s;
+}
+
+.overlay {
+  display: none;
+}
+
+.links a:hover {
+  color: var(--warn-hover);
+  transform: scale(1.05);
+}
+
+.tombol {
+  display: inline-block;
+  padding: 0.9rem 1.9rem;
+  color: #fff !important;
+  background-color: var(--warna-utama);
+  border-radius: 16px;
+  text-transform: capitalize;
+  transition: 0.3s;
+}
+
+.tombol:hover {
+  background-color: var(--warn-hover);
+  transform: scale(1) !important;
+}
+
+/* Bagian isi */
+
+.showcase-area .kontainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  justify-content: center;
+}
+
+.full {
+  min-height: 300px;
+}
+
+.big-title {
+  font-size: 1.4rem;
+  color: var(--hitam-satu);
+  text-transform: capitalize;
+  line-height: 1.4;
+}
+
+.text {
+  color: var(--cerah-satu);
+  font-size: 1.1rem;
+  margin: 1.9rem 0 2.5rem;
+  max-width: 600px;
+  line-height: 2.3;
+}
+
+.showcase-area .tombol {
+  box-shadow: 0 0 40px 2px rgba(0, 0, 0, 0.05);
+}
+
+.gambar-kanan {
+  width: 55%;
+  transform: translate(65%, 25px);
+}
+
+.toggle-btn {
+  display: inline-block;
+  border: none;
+  background: var(--hitam-dua);
+  color: var(--warna-background);
+  outline: none;
+  cursor: pointer;
+  height: 39px;
+  width: 39px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  transition: 0.3s;
+}
+
+.toggle-btn i {
+  line-height: 39px;
+}
+
+.toggle-btn:hover {
+  background: var(--warna-utama);
+}
+
+.big-wrapper.light .toggle-btn i:last-child {
+  display: none;
+}
+
+.big-wrapper.light .toggle-btn i:first-child {
+  display: block;
+}
+
+.big-wrapper.dark .toggle-btn i:last-child {
+  display: block;
+}
+
+.big-wrapper.dark .toggle-btn i:first-child {
+  display: none;
+}
+
+.shape {
+  position: absolute;
+  z-index: 0;
+  width: 500px;
+  bottom: -180px;
+  left: -15px;
+  opacity: 0.1;
+}
+
+.copy {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 20;
+  animation: appear 1s 1 both;
+}
+
+@keyframes appear {
+  0% {
+    clip-path: circle(30% at -25% -25%);
+  }
+  100% {
+    clip-path: circle(150% at 0 0);
+  }
+}
+
+.hamburger-menu {
+  position: relative;
+  z-index: 30;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  display: none;
+}
+
+.hamburger-menu .bar {
+  position: relative;
+  width: 100%;
+  height: 3px;
+  background-color: var(--hitam-dua);
+  border-radius: 3px;
+  transition: 0.5s;
+}
+
+.bar::before {
+  transform: translateY(-8px);
+}
+
+.bar::after {
+  transform: translateY(8px);
+}
+
+.bar::before,
+.bar::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: var(--hitam-dua);
+  border-radius: 3px;
+}
+
+.big-wrapper.active .hamburger-menu .bar {
+  background-color: transparent;
+}
+
+/* Rotasi Garis */
+.big-wrapper.active .bar::before {
+  transform: translateY(0) rotate(-45deg);
+}
+
+.big-wrapper.active .bar::after {
+  transform: translateY(0) rotate(45deg);
+}
+
+/* Responsive */
+
+@media screen and (max-width: 870px) {
+  .showcase-area .kontainer {
+    grid-template-columns: 1fr;
+    justify-content: center;
+    grid-gap: 2rem;
+  }
+
+  .showcase-area {
+    padding: 2.5rem 0;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .big-title {
+    font-size: 1.1rem;
+  }
+
+  .text {
+    font-size: 0.95rem;
+    margin: 1.4rem 0 1.5rem;
+  }
+
+  .logo h3 {
+    font-size: 1.25rem;
+  }
+
+  .showcase-area {
+    bottom: -180px;
+    left: -150px;
+  }
+
+  .gambar-kanan {
+    width: 100%;
+    transform: none;
+  }
+
+  .hamburger-menu {
+    display: flex;
+  }
+
+  .links {
+    position: fixed;
+    top: 0;
+    right: 0;
+    max-width: 450px;
+    height: 100%;
+    width: 100%;
+    background-color: var(--warna-utama);
+    z-index: 25;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(100%);
+    transition: 0.5s;
+  }
+
+  .links ul {
+    flex-direction: column;
+  }
+
+  .links a {
+    margin-left: 0;
+    color: #fff;
+    padding: 2rem 0;
+  }
+
+  .links .tombol {
+    background: none;
+  }
+
+  .overlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .big-wrapper.active .links {
+    transform: translateX(0);
+    box-shadow: 0 0 50px 2px rgba(0, 0, 0, 0.4);
+  }
+
+  .big-wrapper.active .overlay {
+    pointer-events: all;
+    opacity: 1;
+  }
+}
+
+@media screen and (max-width: 470px) {
+  .kontainer {
+    padding: 0 1.5rem;
+  }
+
+  .big-title {
+    font-size: 0.9rem;
+  }
+
+  .text {
+    margin: 1.1rem 0 1.5rem;
+  }
+
+  .showcase-area .tombol {
+    font-size: 0.8rem;
+  }
+}
+
+/* Postingan user */
+.bottom-area {
+  margin-top: 70px;
+}
