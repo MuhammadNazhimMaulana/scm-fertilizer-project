@@ -98,6 +98,70 @@ class Validation
 			'required' => '{field} Harus diisi',
 		],
 	];
+	
+	// Bagian Pesanan
+	public $pesanan = [
+		'nama_pemesan' => [
+			'rules' => 'required',
+		],
+	];
 
+	public $pesanan_errors = [
+		'nama_pemesan' => [
+			'required' => '{field} Harus diisi',
+		],
+	];
+	
+	// Bagian Update Pesanan
+	public $pesanan_update = [
+		'nama_pemesan' => [
+			'rules' => 'required',
+		],
+	];
+
+	public $pesanan_update_errors = [
+		'nama_pemesan' => [
+			'required' => '{field} Harus diisi',
+		],
+	];
+	
+	// Bagian Produk
+	public $produk = [
+		'nama_pupuk' => [
+			'rules' => 'required',
+		],
+		'harga_pupuk' => [
+			'rules' => 'required',
+		],
+	];
+
+	public $produk_errors = [
+		'nama_pupuk' => [
+			'required' => '{field} Harus diisi',
+		],
+		'harga_pupuk' => [
+			'required' => '{field} Harus diisi',
+		],
+	];
+	
+	// Bagian Update Pesanan
+	public $produk_update = [
+		'nama_pupuk' => [
+			'rules' => 'required',
+		],
+		'harga_pupuk' => [
+			'rules' => 'required',
+		],
+	];
+
+	public $produk_update_errors = [
+		'nama_pupuk' => [
+			'required' => '{field} Harus diisi',
+		],
+		'harga_pupuk' => [
+			'required' => '{field} Harus diisi',
+		],
+	];
+	
     //--------------------------------------------------------------------
 }
