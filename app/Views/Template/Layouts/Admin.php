@@ -30,6 +30,9 @@
     <!-- Link JS Bootstrap -->
     <script src="<?= base_url('bootstrap/js/bootstrap.bundle.min.js')?>"></script>
 
+    <!-- Link JQuery -->
+    <script src="<?= base_url('js/jquery.min.js')?>"></script>
+    
     <!-- Link JS Custom -->
     <script src="<?= base_url('js/main_admin.js')?>"></script>
 

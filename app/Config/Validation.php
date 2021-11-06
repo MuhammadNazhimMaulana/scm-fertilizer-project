@@ -162,6 +162,24 @@ class Validation
 			'required' => '{field} Harus diisi',
 		],
 	];
-	
+
+	// Bagian Insrt Orderan
+	public $order_item = [
+		'nama_produk' => [
+			'rules' => 'required',
+		],
+		'jumlah_pesan' => [
+			'rules' => 'required',
+		],
+	];
+
+	public $order_item_errors = [
+		'nama_produk' => [
+			'required' => '{field} Harus diisi',
+		],
+		'jumlah_pesan' => [
+			'required' => '{field} Harus diisi',
+		],
+	];
     //--------------------------------------------------------------------
 }
