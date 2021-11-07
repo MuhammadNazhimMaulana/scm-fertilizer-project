@@ -48,7 +48,7 @@ class Item_Pesanan_A extends BaseController
         $orderan = $model->join('tbl_pesanan', 'tbl_pesanan.id_pesanan = tbl_item_pesanan.id_pesanan')->join('tbl_produk', 'tbl_produk.id_produk = tbl_item_pesanan.id_produk')->where('tbl_item_pesanan.id_pesanan', $id_pesanan)->findAll();
         
         // Mendapatkan Total Bayar
-        $total_bayar = $model->select('SUM(tbl_item_pesanan.harga_item) AS jumlah')->where('tbl_item_pesanan.id_pesanan', $id_pesanan)->get();
+        $total_bayar = $model->select('SUM(tbl_item_pesanan.harga_item) AS jumlah, SUM(tbl_item_pesanan.jumlah_pesan) AS total_pesan, tbl_item_pesanan.nama_produk AS text')->where('tbl_item_pesanan.id_pesanan', $id_pesanan)->get();
 
         $data = [
             'title' => 'Item Pesanan',
@@ -157,8 +157,8 @@ class Item_Pesanan_A extends BaseController
         // id_pesanan agar kembali ke input
         $id_pesanan = $items->id_pesanan;
         
-        $segments = ['Admin', 'Item_Pesanan_A', 'order', $id_pesanan];
+         $segments = ['Admin', 'Item_Pesanan_A', 'order', $id_pesanan];
 
-        return redirect()->to(site_url($segments));
+         return redirect()->to(site_url($segments));
     }    
 }

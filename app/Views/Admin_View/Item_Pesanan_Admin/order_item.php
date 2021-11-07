@@ -57,6 +57,30 @@ $harga_pupuk = [
     'value' => null,
     'class' => 'form-control'
 ];
+  
+$harga_total = [
+    'name' => 'harga_total',
+    'id' => 'harga_total',
+    'type' => 'hidden',
+    'value' => $total[0]->jumlah,
+    'class' => 'form-control'
+];
+  
+$pesanan_customer = [
+    'name' => 'pesanan',
+    'id' => 'pesanan',
+    'type' => 'hidden',
+    'value' => $total[0]->text,
+    'class' => 'form-control'
+];
+  
+$jumlah_pesanan = [
+    'name' => 'jumlah_pesanan',
+    'id' => 'jumlah_pesanan',
+    'type' => 'hidden',
+    'value' => $total[0]->total_pesan,
+    'class' => 'form-control'
+];
 
 $submit = [
     'name' => 'submit',
@@ -171,6 +195,28 @@ $errors = $session->getFlashdata('errors');
                             </tr>
                         </tbody>
                     </table>
+
+                    <!-- Awal Penyesuaian Transaksi -->
+                    <?= form_open('Admin/Pesanan_A/order_check/' . $pesanan->id_pesanan) ?>
+
+                        <div class="col-sm-4">
+                            <?= form_input($harga_total) ?>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <?= form_input($jumlah_pesanan) ?>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <?= form_input($pesanan_customer) ?>
+                        </div>
+
+                        <div class="d-flex justify-content-end mt-3">
+                            <!-- Form submit terkait submit-->
+                            <?= form_submit($submit) ?>
+                        </div>
+                    <?= form_close() ?>
+                    <!-- Akhir Penyesuaian Transaksi -->
     </div>
 </div>
 
@@ -282,13 +328,14 @@ $errors = $session->getFlashdata('errors');
         <!-- Mendapatkan Nilai dari yang dipilih -->
             <?php
                 $order = [
-                    'name' => 'id_item_order',
-                    'id' => 'id_item_order',
+                    'name' => 'id_pesanan',
+                    'id' => 'order',
                     'type' => 'hidden',
                     'class' => 'form-control',
-                    'value' => $orders->id_item_order,
+                    'value' => $orders->id_pesanan,
                     'readonly' => true
                     ];
+
             ?>
         
         <div class="modal fade" id="modalDelete<?= $orders->id_item_order ?>" tabindex="-1" data-bs-backdrop="static">

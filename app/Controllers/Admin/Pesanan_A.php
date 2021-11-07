@@ -149,4 +149,42 @@ class Pesanan_A extends BaseController
         return redirect()->to(site_url('Admin/Pesanan_A/read'));
     }
 
+    public function order_check()
+    {
+        $id_pesanan = $this->request->uri->getSegment(4);
+
+        $model = new Pesanan_M();
+
+        // Dapatkan Post
+        $data_perubahan = $this->request->getPost();
+
+        $pesanan = new Pesanan_E();
+        $pesanan->id_pesanan = $id_pesanan;
+        $pesanan->fill($data_perubahan);
+
+        //Input Harga
+        $pesanan->updated_at = date("Y-m-d H:i:s");
+
+        $model->save($pesanan);
+
+        $segments = ['Admin', 'Pesanan_A', 'check_out', $id_pesanan];
+
+        return redirect()->to(site_url($segments));
+    }
+
+    public function check_out(){
+        $id_pesanan = $this->request->uri->getSegment(4);
+
+        $model = new Pesanan_M();
+
+        $pesanan = $model->find($id_pesanan);
+
+        $data = [
+            "title" => 'Pesanan',
+            'order' => $pesanan
+        ];
+       
+        return view('Admin_View/Pesanan_Admin/check_out_pesanan', $data);
+    }
+
 }
