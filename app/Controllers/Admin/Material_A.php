@@ -90,13 +90,17 @@ class Material_A extends BaseController
 
 
                 $segments = ['Admin', 'Material_A', 'view', $id_material];
-    
+
+                // Pesan
+                $this->session->setFlashdata('informasi', 'Berhasil Menambahkan Data Material');
+                
                 // Akan redirect ke /Admin/Rak_A/view/$id_barang
                 return redirect()->to(site_url($segments));
 
             }
             $this->session->setFlashdata('errors', $errors);
         }
+
         return view('Admin_View/Material_View/create_material', $data_material);
     }
 

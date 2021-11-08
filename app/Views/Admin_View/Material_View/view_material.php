@@ -16,6 +16,7 @@ $submit = [
   'class' => 'btn btn-outline-secondary'
 ];
 
+$session = session();
 ?>
 
 <h1 class="text-center">Material</h1>
