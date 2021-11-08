@@ -17,6 +17,14 @@ $nama_pemesan = [
     'value' => $order->nama_pemesan,
     'class' => 'form-control'
 ];
+  
+$deadline = [
+    'name' => 'deadline',
+    'id' => 'deadline',
+    'type' => 'date',
+    'value' => null,
+    'class' => 'form-control'
+];
 
 $submit = [
     'name' => 'submit',
@@ -52,7 +60,7 @@ $errors = $session->getFlashdata('errors');
                 <?php endif ?>
                 
                 <!-- Membuat Form dengan Form Helper -->
-                <?= form_open('Admin/Item_pesanan_A/tambah_order/' . $order->id_pesanan) ?>
+                <?= form_open('Admin/Pesanan_A/check_out/' . $order->id_pesanan) ?>
                 <div class="row mt-5">
 
                     <div class="col-md-4 mb-4">
@@ -62,6 +70,10 @@ $errors = $session->getFlashdata('errors');
                     <div class="col-md-4 mb-4">
                         <?= form_label("Jumlah Pesanan", "jumlah_pesanan") ?>
                         <?= form_input($jumlah_pesanan) ?>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <?= form_label("Tanggal Deadline", "deadline") ?>
+                        <?= form_input($deadline) ?>
                     </div>
 
                 </div>

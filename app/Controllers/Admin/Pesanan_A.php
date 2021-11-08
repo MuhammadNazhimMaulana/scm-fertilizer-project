@@ -133,6 +133,7 @@ class Pesanan_A extends BaseController
 
                 return redirect()->to(site_url($segments));
             }
+            $this->session->setFlashdata('errors', $errors);
         }
 
         return view('Admin_View/Pesanan_Admin/update_pemesanan', $data);
@@ -183,7 +184,27 @@ class Pesanan_A extends BaseController
             "title" => 'Pesanan',
             'order' => $pesanan
         ];
-       
+
+        if ($this->request->getPost()) {
+            $data_final = $this->request->getPost();
+            $this->validation->run($data_final, 'pesanan_update');
+            $errors = $this->validation->getErrors();
+
+            if (!$errors) {
+               $pesanan = new Pesanan_E();
+               $pesanan->id_pesanan = $id_pesanan;
+               $pesanan->fill($data_final);
+
+               $pesanan->updated_at = date("Y-m-d H:i:s");
+
+                $model->save($pesanan);
+
+                $segments = ['Admin', 'Pesanan_A', 'view', $id_pesanan];
+
+                return redirect()->to(site_url($segments));
+            }
+            $this->session->setFlashdata('errors', $errors);
+        }
         return view('Admin_View/Pesanan_Admin/check_out_pesanan', $data);
     }
 

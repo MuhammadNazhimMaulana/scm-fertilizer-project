@@ -144,7 +144,7 @@ class Validation
 		],
 	];
 	
-	// Bagian Update Pesanan
+	// Bagian Update Produk
 	public $produk_update = [
 		'nama_pupuk' => [
 			'rules' => 'required',
@@ -159,6 +159,32 @@ class Validation
 			'required' => '{field} Harus diisi',
 		],
 		'harga_pupuk' => [
+			'required' => '{field} Harus diisi',
+		],
+	];
+	
+	// Bagian Material
+	public $material = [
+		'nama_material' => [
+			'rules' => 'required',
+		],
+	];
+
+	public $material_errors = [
+		'nama_material' => [
+			'required' => '{field} Harus diisi',
+		],
+	];
+	
+	// Bagian Update Material
+	public $material_update = [
+		'nama_material' => [
+			'rules' => 'required',
+		],
+	];
+
+	public $material_update_errors = [
+		'nama_material' => [
 			'required' => '{field} Harus diisi',
 		],
 	];
