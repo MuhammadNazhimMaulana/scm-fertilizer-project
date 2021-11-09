@@ -188,6 +188,32 @@ class Validation
 			'required' => '{field} Harus diisi',
 		],
 	];
+	
+	// Bagian Pembelian
+	public $pembelian = [
+		'status' => [
+			'rules' => 'required',
+		],
+	];
+
+	public $pembelian_errors = [
+		'status' => [
+			'required' => '{field} Harus diisi',
+		],
+	];
+	
+	// Bagian Update Pembelian
+	public $pembelian_update = [
+		'status' => [
+			'rules' => 'required',
+		],
+	];
+
+	public $pembelian_update_errors = [
+		'status' => [
+			'required' => '{field} Harus diisi',
+		],
+	];
 
 	// Bagian Insrt Orderan
 	public $order_item = [

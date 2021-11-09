@@ -10,6 +10,9 @@ use App\Entities\Pesanan_E;
 use App\Models\Item_Order_M;
 use App\Entities\Item_Order_E;
 
+use App\Models\Pembelian_M;
+use App\Entities\Pembelian_E;
+
 class Pesanan_A extends BaseController
 {
     public function __construct()
@@ -198,6 +201,16 @@ class Pesanan_A extends BaseController
                $pesanan->updated_at = date("Y-m-d H:i:s");
 
                 $model->save($pesanan);
+
+                //Membuat pembelian Baru
+                $model_beli = new Pembelian_M();
+
+                $pembelian = new Pembelian_E();
+                $pembelian->id_pesanan = $id_pesanan;
+                $pembelian->lama_pesanan = $pesanan->deadline;
+                $pembelian->status = 'Menunggu Proses';
+
+                $model_beli->save($pembelian);
 
                 $segments = ['Admin', 'Pesanan_A', 'view', $id_pesanan];
 
