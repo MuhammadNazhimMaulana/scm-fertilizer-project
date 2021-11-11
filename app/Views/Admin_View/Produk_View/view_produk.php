@@ -1,6 +1,6 @@
 <?= $this->extend('Template/Layouts/Admin') ?>
 <?= $this->section('content_admin') ?>
-<?php 
+<?php
 $keyword = [
   'name' => 'keyword',
   'value' => $keyword,
@@ -12,7 +12,7 @@ $keyword = [
 $submit = [
   'name' => 'submit',
   'value' => 'Cari',
-  'type' =>'submit',
+  'type' => 'submit',
   'class' => 'btn btn-outline-secondary'
 ];
 
@@ -31,12 +31,12 @@ $submit = [
         <!-- Awal Searching -->
         <?= form_open('Admin/Produk_A/read') ?>
         <div class="input-group mb-3 justify-content-end">
-              <div>
-                <?= form_input($keyword) ?>
-              </div>
-              <div>
-                <?= form_submit($submit) ?>
-              </div>
+          <div>
+            <?= form_input($keyword) ?>
+          </div>
+          <div>
+            <?= form_submit($submit) ?>
+          </div>
         </div>
         <?= form_close() ?>
         <!-- Akhir Searching -->
@@ -52,47 +52,47 @@ $submit = [
             </tr>
           </thead>
           <tbody>
-              <?php $i = 1;?>
-              <?php foreach ($produk as $index =>$product) :?>
-            <tr>
-              <td><?= $i++ ?></td>
-              <td><?=$product->nama_pupuk ?></td>
-              <td><?=$product->harga_pupuk ?></td>
-              <td>
-                <a href="<?= site_url('Admin/Produk_A/view/' .$product->id_produk) ?>" class="btn btn-primary">View</a>
-                <a href="<?= site_url('Admin/Produk_A/update/' .$product->id_produk) ?>" class="btn btn-warning">Update</a>
-                <a href="#modalDelete<?=$product->id_produk ?>" data-bs-toggle="modal" onclick="" class="btn btn-danger">Delete</a>
-              </td>
-            </tr>
+            <?php $i = 1; ?>
+            <?php foreach ($produk as $index => $product) : ?>
+              <tr>
+                <td><?= $i++ ?></td>
+                <td><?= $product->nama_pupuk ?></td>
+                <td><?= $product->harga_pupuk ?></td>
+                <td>
+                  <a href="<?= site_url('Admin/Produk_A/view/' . $product->id_produk) ?>" class="btn btn-primary">View</a>
+                  <a href="<?= site_url('Admin/Produk_A/update/' . $product->id_produk) ?>" class="btn btn-warning">Update</a>
+                  <a href="#modalDelete<?= $product->id_produk ?>" data-bs-toggle="modal" onclick="" class="btn btn-danger">Delete</a>
+                </td>
+              </tr>
             <?php endforeach ?>
         </table>
       </div>
-          <div class="card-footer">
-            <?= $pager->links('pesanan', 'custom_pagination') ?>
-          </div>
+      <div class="card-footer">
+        <?= $pager->links('pesanan', 'custom_pagination') ?>
+      </div>
     </div>
   </div>
 </div>
 
 <!-- Modal -->
-<?php foreach ($produk as $index =>$product) :?>
-<div class="modal fade" id="modalDelete<?=$product->id_produk ?>" tabindex="-1" data-bs-backdrop="static">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Konfirmasi Penghapusan</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p>Apakah Anda yakin akan menghapus data ini?</p>
-      </div>
-      <div class="modal-footer">
+<?php foreach ($produk as $index => $product) : ?>
+  <div class="modal fade" id="modalDelete<?= $product->id_produk ?>" tabindex="-1" data-bs-backdrop="static">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Konfirmasi Penghapusan</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Apakah Anda yakin akan menghapus data ini?</p>
+        </div>
+        <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button class="btn btn-danger"><a href="<?= site_url('Admin/Produk_A/delete/' .$product->id_produk) ?>">Delete</a></button>
+          <button class="btn btn-danger"><a href="<?= site_url('Admin/Produk_A/delete/' . $product->id_produk) ?>">Delete</a></button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 <?php endforeach ?>
 
 

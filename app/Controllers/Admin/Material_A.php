@@ -28,8 +28,7 @@ class Material_A extends BaseController
 
         $keyword = '';
 
-        if($this->request->getPost())
-        {
+        if ($this->request->getPost()) {
             $keyword = $this->request->getPost('keyword');
         }
 
@@ -50,11 +49,11 @@ class Material_A extends BaseController
 
         $model = new Material_M();
 
-      $material = $model->find($id_material);
+        $material = $model->find($id_material);
 
         // Data yang akan dikirim ke view specific
         $data = [
-            "material" =>$material,
+            "material" => $material,
             "title" => 'Material'
         ];
 
@@ -78,11 +77,11 @@ class Material_A extends BaseController
                 // Simpan data
                 $model = new Material_M();
 
-              $material = new Material_E();
+                $material = new Material_E();
 
                 // Fill untuk assign value data kecuali gambar
-              $material->fill($data);
-              $material->created_at = date("Y-m-d H:i:s");
+                $material->fill($data);
+                $material->created_at = date("Y-m-d H:i:s");
 
                 $model->save($material);
 
@@ -93,10 +92,9 @@ class Material_A extends BaseController
 
                 // Pesan
                 $this->session->setFlashdata('informasi', 'Berhasil Menambahkan Data Material');
-                
+
                 // Akan redirect ke /Admin/Rak_A/view/$id_barang
                 return redirect()->to(site_url($segments));
-
             }
             $this->session->setFlashdata('errors', $errors);
         }
@@ -110,10 +108,10 @@ class Material_A extends BaseController
 
         $model = new Material_M();
 
-      $material = $model->find($id_material);
+        $material = $model->find($id_material);
 
         $data = [
-            'material' =>$material,
+            'material' => $material,
             "title" => 'Material'
         ];
 
@@ -123,11 +121,11 @@ class Material_A extends BaseController
             $errors = $this->validation->getErrors();
 
             if (!$errors) {
-              $material = new Material_E();
-              $material->id_material = $id_material;
-              $material->fill($data_material);
+                $material = new Material_E();
+                $material->id_material = $id_material;
+                $material->fill($data_material);
 
-              $material->updated_at = date("Y-m-d H:i:s");
+                $material->updated_at = date("Y-m-d H:i:s");
 
                 $model->save($material);
 
@@ -150,5 +148,4 @@ class Material_A extends BaseController
 
         return redirect()->to(site_url('Admin/Material_A/read'));
     }
-
 }

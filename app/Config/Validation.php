@@ -9,38 +9,38 @@ use CodeIgniter\Validation\Rules;
 
 class Validation
 {
-    //--------------------------------------------------------------------
-    // Setup
-    //--------------------------------------------------------------------
+	//--------------------------------------------------------------------
+	// Setup
+	//--------------------------------------------------------------------
 
-    /**
-     * Stores the classes that contain the
-     * rules that are available.
-     *
-     * @var string[]
-     */
-    public $ruleSets = [
-        Rules::class,
-        FormatRules::class,
-        FileRules::class,
-        CreditCardRules::class,
-    ];
+	/**
+	 * Stores the classes that contain the
+	 * rules that are available.
+	 *
+	 * @var string[]
+	 */
+	public $ruleSets = [
+		Rules::class,
+		FormatRules::class,
+		FileRules::class,
+		CreditCardRules::class,
+	];
 
-    /**
-     * Specifies the views that are used to display the
-     * errors.
-     *
-     * @var array<string, string>
-     */
-    public $templates = [
-        'list'   => 'CodeIgniter\Validation\Views\list',
-        'single' => 'CodeIgniter\Validation\Views\single',
-    ];
+	/**
+	 * Specifies the views that are used to display the
+	 * errors.
+	 *
+	 * @var array<string, string>
+	 */
+	public $templates = [
+		'list'   => 'CodeIgniter\Validation\Views\list',
+		'single' => 'CodeIgniter\Validation\Views\single',
+	];
 
-    //--------------------------------------------------------------------
-    // Rules
+	//--------------------------------------------------------------------
+	// Rules
 
-    // Bagian Register
+	// Bagian Register
 	public $register = [
 		'username' => [
 			'rules' => 'required|min_length[5]',
@@ -79,7 +79,7 @@ class Validation
 		]
 	];
 
-    // Bagian Login
+	// Bagian Login
 	public $login = [
 		'username' => [
 			'rules' => 'required|min_length[5]',
@@ -98,7 +98,7 @@ class Validation
 			'required' => '{field} Harus diisi',
 		],
 	];
-	
+
 	// Bagian Pesanan
 	public $pesanan = [
 		'nama_pemesan' => [
@@ -111,7 +111,7 @@ class Validation
 			'required' => '{field} Harus diisi',
 		],
 	];
-	
+
 	// Bagian Update Pesanan
 	public $pesanan_update = [
 		'nama_pemesan' => [
@@ -124,7 +124,7 @@ class Validation
 			'required' => '{field} Harus diisi',
 		],
 	];
-	
+
 	// Bagian Produk
 	public $produk = [
 		'nama_pupuk' => [
@@ -143,7 +143,7 @@ class Validation
 			'required' => '{field} Harus diisi',
 		],
 	];
-	
+
 	// Bagian Update Produk
 	public $produk_update = [
 		'nama_pupuk' => [
@@ -162,7 +162,7 @@ class Validation
 			'required' => '{field} Harus diisi',
 		],
 	];
-	
+
 	// Bagian Material
 	public $material = [
 		'nama_material' => [
@@ -175,7 +175,7 @@ class Validation
 			'required' => '{field} Harus diisi',
 		],
 	];
-	
+
 	// Bagian Update Material
 	public $material_update = [
 		'nama_material' => [
@@ -188,7 +188,7 @@ class Validation
 			'required' => '{field} Harus diisi',
 		],
 	];
-	
+
 	// Bagian Pembelian
 	public $pembelian = [
 		'status' => [
@@ -201,7 +201,7 @@ class Validation
 			'required' => '{field} Harus diisi',
 		],
 	];
-	
+
 	// Bagian Update Pembelian
 	public $pembelian_update = [
 		'status' => [
@@ -211,6 +211,32 @@ class Validation
 
 	public $pembelian_update_errors = [
 		'status' => [
+			'required' => '{field} Harus diisi',
+		],
+	];
+
+	// Bagian Vendor
+	public $vendor = [
+		'nama_vendor' => [
+			'rules' => 'required',
+		],
+	];
+
+	public $vendor_errors = [
+		'nama_vendor' => [
+			'required' => '{field} Harus diisi',
+		],
+	];
+
+	// Bagian Update Vendor
+	public $vendor_update = [
+		'nama_vendor' => [
+			'rules' => 'required',
+		],
+	];
+
+	public $vendor_update_errors = [
+		'nama_vendor' => [
 			'required' => '{field} Harus diisi',
 		],
 	];
@@ -233,5 +259,24 @@ class Validation
 			'required' => '{field} Harus diisi',
 		],
 	];
-    //--------------------------------------------------------------------
+
+	// Bagian Insrt Orderan
+	public $buy_item = [
+		'nama_item' => [
+			'rules' => 'required',
+		],
+		'item_beli' => [
+			'rules' => 'required',
+		],
+	];
+
+	public $buy_item_errors = [
+		'nama_item' => [
+			'required' => '{field} Harus diisi',
+		],
+		'item_beli' => [
+			'required' => '{field} Harus diisi',
+		],
+	];
+	//--------------------------------------------------------------------
 }

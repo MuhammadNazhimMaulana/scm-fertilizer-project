@@ -33,8 +33,7 @@ class Pesanan_A extends BaseController
 
         $keyword = '';
 
-        if($this->request->getPost())
-        {
+        if ($this->request->getPost()) {
             $keyword = $this->request->getPost('keyword');
         }
 
@@ -55,11 +54,11 @@ class Pesanan_A extends BaseController
 
         $model = new Pesanan_M();
 
-       $pesanan = $model->find($id_pesanan);
+        $pesanan = $model->find($id_pesanan);
 
         // Data yang akan dikirim ke view specific
         $data = [
-            "pesanan" =>$pesanan,
+            "pesanan" => $pesanan,
             "title" => 'Pesanan'
         ];
 
@@ -83,11 +82,11 @@ class Pesanan_A extends BaseController
                 // Simpan data
                 $model = new Pesanan_M();
 
-               $pesanan = new Pesanan_E();
+                $pesanan = new Pesanan_E();
 
                 // Fill untuk assign value data kecuali gambar
-               $pesanan->fill($data);
-               $pesanan->created_at = date("Y-m-d H:i:s");
+                $pesanan->fill($data);
+                $pesanan->created_at = date("Y-m-d H:i:s");
 
                 $model->save($pesanan);
 
@@ -95,10 +94,9 @@ class Pesanan_A extends BaseController
 
 
                 $segments = ['Admin', 'Item_Pesanan_A', 'order', $id_pesanan];
-    
+
                 // Akan redirect ke /Admin/Rak_A/view/$id_barang
                 return redirect()->to(site_url($segments));
-
             }
             $this->session->setFlashdata('errors', $errors);
         }
@@ -111,10 +109,10 @@ class Pesanan_A extends BaseController
 
         $model = new Pesanan_M();
 
-       $pesanan = $model->find($id_pesanan);
+        $pesanan = $model->find($id_pesanan);
 
         $data = [
-            'pesanan' =>$pesanan,
+            'pesanan' => $pesanan,
             "title" => 'Pesanan'
         ];
 
@@ -124,11 +122,11 @@ class Pesanan_A extends BaseController
             $errors = $this->validation->getErrors();
 
             if (!$errors) {
-               $pesanan = new Pesanan_E();
-               $pesanan->id_pesanan = $id_pesanan;
-               $pesanan->fill($data_pesanan);
+                $pesanan = new Pesanan_E();
+                $pesanan->id_pesanan = $id_pesanan;
+                $pesanan->fill($data_pesanan);
 
-               $pesanan->updated_at = date("Y-m-d H:i:s");
+                $pesanan->updated_at = date("Y-m-d H:i:s");
 
                 $model->save($pesanan);
 
@@ -176,7 +174,8 @@ class Pesanan_A extends BaseController
         return redirect()->to(site_url($segments));
     }
 
-    public function check_out(){
+    public function check_out()
+    {
         $id_pesanan = $this->request->uri->getSegment(4);
 
         $model = new Pesanan_M();
@@ -194,11 +193,11 @@ class Pesanan_A extends BaseController
             $errors = $this->validation->getErrors();
 
             if (!$errors) {
-               $pesanan = new Pesanan_E();
-               $pesanan->id_pesanan = $id_pesanan;
-               $pesanan->fill($data_final);
+                $pesanan = new Pesanan_E();
+                $pesanan->id_pesanan = $id_pesanan;
+                $pesanan->fill($data_final);
 
-               $pesanan->updated_at = date("Y-m-d H:i:s");
+                $pesanan->updated_at = date("Y-m-d H:i:s");
 
                 $model->save($pesanan);
 
@@ -220,5 +219,4 @@ class Pesanan_A extends BaseController
         }
         return view('Admin_View/Pesanan_Admin/check_out_pesanan', $data);
     }
-
 }

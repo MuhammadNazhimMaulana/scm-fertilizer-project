@@ -20,7 +20,7 @@
 # APP
 #--------------------------------------------------------------------
 
- app.baseURL = 'http://localhost/scm_fertilizer/public/'
+ app.baseURL = 'http://localhost:8088/scm-fertilizer-project/public/'
 # app.forceGlobalSecureRequests = false
 
 # app.sessionDriver = 'CodeIgniter\Session\Handlers\FileHandler'
