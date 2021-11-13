@@ -262,7 +262,7 @@ class Validation
 
 	// Bagian Insrt Orderan
 	public $buy_item = [
-		'nama_item' => [
+		'id_material' => [
 			'rules' => 'required',
 		],
 		'item_beli' => [
@@ -271,7 +271,7 @@ class Validation
 	];
 
 	public $buy_item_errors = [
-		'nama_item' => [
+		'id_material' => [
 			'required' => '{field} Harus diisi',
 		],
 		'item_beli' => [

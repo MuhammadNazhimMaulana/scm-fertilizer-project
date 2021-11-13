@@ -70,4 +70,8 @@ class Pembelian_A extends BaseController
 
         return redirect()->to(site_url('Admin/Pembelian_A/read'));
     }
+
+    public function buy_check()
+    {
+    }
 }

@@ -51,9 +51,17 @@ $item_beli = [
 ];
 
 $nama_item = [
-    'name' => 'nama_item',
+    'name' => 'id_material',
     'id' => 'nama_item',
     'options' => $daftar_item,
+    'class' => 'form-control'
+];
+
+$jumlah_beli = [
+    'name' => 'jumlah_beli',
+    'id' => 'jumlah_beli',
+    'type' => 'hidden',
+    'value' => $total[0]->jumlah,
     'class' => 'form-control'
 ];
 
@@ -157,7 +165,7 @@ $errors = $session->getFlashdata('errors');
                             <th scope="row"><?= $i++ ?></th>
                             <td><?= $buys->id_pembelian ?></td>
                             <td><?= $buys->nama_vendor ?></td>
-                            <td><?= $buys->nama_item ?></td>
+                            <td><?= $buys->nama_material ?></td>
                             <td><?= $buys->item_beli ?></td>
                             <td>
                                 <a href="#modalUpdate<?= $buys->id_item_vendor ?>" data-bs-toggle="modal" onclick="" class="btn btn-warning">Update</a>
@@ -172,12 +180,163 @@ $errors = $session->getFlashdata('errors');
                 </tr>
                 </tbody>
             </table>
+
+            <!-- Awal Penyesuaian Transaksi Pembelian -->
+            <?= form_open('Admin/Pembelian_A/buy_check/' . $pembelian->id_pembelian) ?>
+
+            <div class="col-sm-4">
+                <?= form_input($jumlah_beli) ?>
+            </div>
+
+            <div class="d-flex justify-content-center mt-3">
+                <!-- Form submit terkait submit-->
+                <?= form_submit($submit) ?>
+            </div>
+            <?= form_close() ?>
+            <!-- Akhir Penyesuaian Transaksi Pembelian -->
+
         </div>
     </div>
 </div>
 
 <!-- Awal Modal Update -->
+<!-- Modal -->
+<?php foreach ($beli as $index => $buys) : ?>
+    <!-- Mendapatkan Nilai dari yang dipilih -->
+    <?php
+    $nomor_beli = [
+        'name' => 'id_pembelian',
+        'id' => 'id_pembelian',
+        'type' => 'hidden',
+        'class' => 'form-control',
+        'value' => $buys->id_pembelian,
+        'readonly' => true
+    ];
 
+    $nomor_vendor = [
+        'name' => 'id_vendor',
+        'id' => 'id_vendor',
+        'type' => 'hidden',
+        'class' => 'form-control',
+        'value' => $buys->id_vendor,
+        'readonly' => true
+    ];
+
+    $nomor_material = [
+        'name' => 'id_material',
+        'id' => 'id_material',
+        'options' => $daftar_item,
+        'class' => 'form-control',
+        'selected' => $buys->id_material,
+        'readonly' => true
+    ];
+
+    $banyak_beli = [
+        'name' => 'item_beli',
+        'id' => 'banyak_beli',
+        'type' => 'number',
+        'class' => 'form-control',
+        'value' => $buys->item_beli,
+    ];
+
+    ?>
+
+    <div class="modal fade" id="modalUpdate<?= $buys->id_item_vendor ?>" tabindex="-1" data-bs-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Konfirmasi Perubahan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <!-- Awal Input Item -->
+                    <?= form_open('Admin/Item_Vendor_A/update_pembelian/' . $buys->id_item_vendor) ?>
+                    <div class="row">
+                        <div class="col-sm-6 input">
+                            <?= form_label("Nama Material", "nomor_material") ?>
+                            <?= form_dropdown($nomor_material) ?>
+                        </div>
+
+                        <div class="col-sm-6 input">
+                            <?= form_label("Jumlah Pesan", "banyak_beli") ?>
+                            <?= form_input($banyak_beli) ?>
+                        </div>
+
+                        <div class="col-sm-4 input">
+                            <?= form_input($nomor_vendor) ?>
+                            <?= form_input($nomor_beli) ?>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer mt-3">
+                    <div class="d-flex justify-content-end mt-3">
+                        <!-- Form submit terkait submit-->
+                        <?= form_submit($submit) ?>
+                    </div>
+
+                    <?= form_close() ?>
+
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endforeach ?>
+<!-- Akhir Modal Update -->
+
+
+<!-- Awal Modal Hapus -->
+<!-- Modal -->
+<?php foreach ($beli as $index => $buys) : ?>
+    <!-- Mendapatkan Nilai dari yang dipilih -->
+    <?php
+    $membeli = [
+        'name' => 'id_pembelian',
+        'id' => 'order',
+        'type' => 'hidden',
+        'class' => 'form-control',
+        'value' => $buys->id_pembelian,
+        'readonly' => true
+    ];
+
+    ?>
+
+    <div class="modal fade" id="modalDelete<?= $buys->id_item_vendor ?>" tabindex="-1" data-bs-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Konfirmasi Penghapusan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <!-- Awal Input Item -->
+                    <?= form_open('Admin/Item_Vendor_A/hapus_pembelian/' . $buys->id_item_vendor) ?>
+                    <div class="row">
+
+                        <div class="col-sm-4 input">
+                            <?= form_input($membeli) ?>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer mt-3">
+                    <div class="d-flex justify-content-end mt-3">
+                        <!-- Form submit terkait submit-->
+                        <?= form_submit($submit) ?>
+                    </div>
+
+                    <?= form_close() ?>
+
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endforeach ?>
+<!-- Akhir Modal Hapus -->
 
 <?= $this->endSection() ?>
 
