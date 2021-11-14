@@ -46,7 +46,7 @@ $session = session();
                     <thead>
                         <tr>
                             <th scope="col">No</th>
-                            <th scope="col">Nama Vendor</th>
+                            <th scope="col">Total Bayar Pesanan</th>
                             <th scope="col">Deadline Pesanan</th>
                             <th scope="col">Aksi</th>
                         </tr>
@@ -56,7 +56,7 @@ $session = session();
                         <?php foreach ($pembelian as $index => $buys) : ?>
                             <tr>
                                 <td><?= $i++ ?></td>
-                                <td><?= $buys->vendor_penyedia ?></td>
+                                <td><?= $buys->harga_beli ?></td>
                                 <td><?= $buys->lama_pesanan ?></td>
                                 <td>
                                     <a href="<?= site_url('Admin/Pembelian_A/view/' . $buys->id_pembelian) ?>" class="btn btn-primary">View</a>
