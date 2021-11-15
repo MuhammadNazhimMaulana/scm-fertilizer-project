@@ -278,5 +278,24 @@ class Validation
 			'required' => '{field} Harus diisi',
 		],
 	];
+
+	// Bagian Insrt Orderan
+	public $production_item = [
+		'id_produksi' => [
+			'rules' => 'required',
+		],
+		'id_material' => [
+			'rules' => 'required',
+		],
+	];
+
+	public $production_item_errors = [
+		'id_produksi' => [
+			'required' => '{field} Harus diisi',
+		],
+		'id_material' => [
+			'required' => '{field} Harus diisi',
+		],
+	];
 	//--------------------------------------------------------------------
 }
