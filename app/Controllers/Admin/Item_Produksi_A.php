@@ -48,11 +48,16 @@ class Item_Produksi_A extends BaseController
 
         $produksi = $model->join('tbl_material', 'tbl_material.id_material = tbl_item_produksi.id_material')->join('tbl_produksi', 'tbl_produksi.id_produksi = tbl_item_produksi.id_produksi')->where('tbl_item_produksi.id_produksi', $id_produksi)->findAll();
 
+        // Mendapatkan Total Beli
+        $total_kebutuhan = $model->select('SUM(tbl_item_produksi.jumlah_digunakan) AS jumlah')->where('tbl_item_produksi.id_produksi', $id_produksi)->get();
+
+
         $data = [
             "title" => 'Item Produksi',
             'daftar_material' => $list_item,
             "produksi" => $produksi,
-            "production" => $model_produksi->find($id_produksi)
+            "production" => $model_produksi->find($id_produksi),
+            'total' => $total_kebutuhan->getResult()
         ];
 
         return view('Admin_View/Item_Produksi_Admin/production', $data);
@@ -92,5 +97,55 @@ class Item_Produksi_A extends BaseController
             }
             $this->session->setFlashdata('errors', $errors);
         }
+    }
+
+
+    public function update_produksi()
+    {
+        $id_item = $this->request->uri->getSegment(4);
+
+        $data_item_produksi = $this->request->getPost();
+
+        // Simpan data
+        $model = new Item_Produksi_M();
+
+        $items = new Item_Produksi_E();
+        $items->id_item = $id_item;
+        $items->fill($data_item_produksi);
+
+        //Input Total Harga
+        $items->updated_at = date("Y-m-d H:i:s");
+
+        $model->save($items);
+
+        $id_produksi = $items->id_produksi;
+
+        $segments = ['Admin', 'Item_Produksi_A', 'production', $id_produksi];
+
+        return redirect()->to(site_url($segments));
+    }
+
+    public function hapus_produksi()
+    {
+
+        $id_item = $this->request->uri->getSegment(4);
+
+        $data_produksi = $this->request->getPost();
+
+        $model = new Item_Produksi_M();
+
+        $items = new Item_Produksi_E();
+        $items->id_item = $id_item;
+        $items->fill($data_produksi);
+
+        // Hapus Data
+        $model->delete($id_item);
+
+        // id_produksi agar kembali ke input
+        $id_produksi = $items->id_produksi;
+
+        $segments = ['Admin', 'Item_Produksi_A', 'production', $id_produksi];
+
+        return redirect()->to(site_url($segments));
     }
 }

@@ -67,4 +67,43 @@ class Produksi_A extends BaseController
         // Akan redirect ke /Admin/Rak_A/view/$id_barang
         return redirect()->to(site_url($segments));
     }
+
+    public function check_production()
+    {
+        $id_produksi = $this->request->uri->getSegment(4);
+
+        $model = new Produksi_M();
+
+        // Dapatkan Post
+        $data_perubahan = $this->request->getPost();
+
+        $produksi = new Produksi_E();
+        $produksi->id_produksi = $id_produksi;
+        $produksi->fill($data_perubahan);
+
+        //Input Harga
+        $produksi->updated_at = date("Y-m-d H:i:s");
+
+        $model->save($produksi);
+
+        $segments = ['Admin', 'Produksi_A', 'check_out_produksi', $id_produksi];
+
+        return redirect()->to(site_url($segments));
+    }
+
+    public function check_out_produksi()
+    {
+        $id_produksi = $this->request->uri->getSegment(4);
+
+        $model = new Produksi_M();
+
+        $produksi = $model->find($id_produksi);
+
+        $data = [
+            "title" => 'Produksi',
+            'produksi' => $produksi
+        ];
+
+        return view('Admin_View/Produksi_View/check_out_produksi', $data);
+    }
 }

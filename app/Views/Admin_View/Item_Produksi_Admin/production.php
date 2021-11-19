@@ -34,6 +34,14 @@ $nomor_material = [
     'class' => 'form-control'
 ];
 
+$penggunaan_item = [
+    'name' => 'penggunaan_item',
+    'id' => 'penggunaan_item',
+    'type' => 'hidden',
+    'value' => $total[0]->jumlah,
+    'class' => 'form-control'
+];
+
 $jumlah_digunakan = [
     'name' => 'jumlah_digunakan',
     'id' => 'jumlah_digunakan',
@@ -144,14 +152,157 @@ $errors = $session->getFlashdata('errors');
                 <?php endforeach ?>
 
                 <tr>
-                    <td colspan="4">Total Beli (Kg)</td>
-                    <td colspan="2"></td>
+                    <td colspan="3">Total Penggunaan Material (Kg)</td>
+                    <td colspan="2"><?= $total[0]->jumlah ?></td>
                 </tr>
                 </tbody>
             </table>
 
+            <!-- Awal Penyesuaian Transaksi Produksi -->
+            <?= form_open('Admin/Produksi_A/check_production/' . $production->id_produksi) ?>
+
+            <div class="col-sm-4">
+                <?= form_input($penggunaan_item) ?>
+            </div>
+
+            <div class="d-flex justify-content-center mt-3">
+                <!-- Form submit terkait submit-->
+                <?= form_submit($submit) ?>
+            </div>
+            <?= form_close() ?>
+            <!-- Akhir Penyesuaian Transaksi Produksi -->
+
         </div>
     </div>
 </div>
+
+
+<!-- Awal Modal Update -->
+<!-- Modal -->
+<?php foreach ($produksi as $index => $productions) : ?>
+    <!-- Mendapatkan Nilai dari yang dipilih -->
+    <?php
+    $nmr_material = [
+        'name' => 'id_material',
+        'id' => 'nmr_material',
+        'options' => $daftar_material,
+        'selected' => $productions->id_material,
+        'class' => 'form-control'
+    ];
+
+    $nomor_produksi = [
+        'name' => 'id_produksi',
+        'id' => 'id_produksi',
+        'type' => 'hidden',
+        'class' => 'form-control',
+        'value' => $productions->id_produksi,
+        'readonly' => true
+    ];
+
+    $penggunaan = [
+        'name' => 'jumlah_digunakan',
+        'id' => 'penggunaan',
+        'type' => 'number',
+        'class' => 'form-control',
+        'value' => $productions->jumlah_digunakan,
+    ];
+
+    ?>
+
+    <div class="modal fade" id="modalUpdate<?= $productions->id_item ?>" tabindex="-1" data-bs-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Konfirmasi Perubahan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <!-- Awal Input Item -->
+                    <?= form_open('Admin/Item_Produksi_A/update_produksi/' . $productions->id_item) ?>
+                    <div class="row">
+                        <div class="col-sm-6 input">
+                            <?= form_label("Nama Material", "nmr_material") ?>
+                            <?= form_dropdown($nmr_material) ?>
+                        </div>
+
+                        <div class="col-sm-6 input">
+                            <?= form_label("Jumlah Pemakaian", "penggunaan") ?>
+                            <?= form_input($penggunaan) ?>
+                        </div>
+
+                        <div class="col-sm-4 input">
+                            <?= form_input($nomor_produksi) ?>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer mt-3">
+                    <div class="d-flex justify-content-end mt-3">
+                        <!-- Form submit terkait submit-->
+                        <?= form_submit($submit) ?>
+                    </div>
+
+                    <?= form_close() ?>
+
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endforeach ?>
+<!-- Akhir Modal Update -->
+
+
+<!-- Awal Modal Hapus -->
+<!-- Modal -->
+<?php foreach ($produksi as $index => $productions) : ?>
+    <!-- Mendapatkan Nilai dari yang dipilih -->
+    <?php
+    $produksi = [
+        'name' => 'id_produksi',
+        'id' => 'order',
+        'type' => 'hidden',
+        'class' => 'form-control',
+        'value' => $productions->id_produksi,
+        'readonly' => true
+    ];
+
+    ?>
+
+    <div class="modal fade" id="modalDelete<?= $productions->id_item ?>" tabindex="-1" data-bs-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Konfirmasi Penghapusan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <!-- Awal Input Item -->
+                    <?= form_open('Admin/Item_Produksi_A/hapus_produksi/' . $productions->id_item) ?>
+                    <div class="row">
+
+                        <div class="col-sm-4 input">
+                            <?= form_input($produksi) ?>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer mt-3">
+                    <div class="d-flex justify-content-end mt-3">
+                        <!-- Form submit terkait submit-->
+                        <?= form_submit($submit) ?>
+                    </div>
+
+                    <?= form_close() ?>
+
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endforeach ?>
+<!-- Akhir Modal Hapus -->
 
 <?= $this->endSection() ?>

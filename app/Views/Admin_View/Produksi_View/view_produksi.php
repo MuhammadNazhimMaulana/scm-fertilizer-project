@@ -77,7 +77,7 @@ $session = session();
                                 <td><?= $productions->hasil_produksi ?></td>
                                 <td>
                                     <a href="<?= site_url('Admin/Produksi_A/view/' . $productions->id_produksi) ?>" class="btn btn-primary">View</a>
-                                    <a href="<?= site_url('Admin/Item_Produksi_A/production/' . $productions->id_produksi) ?>" class="btn btn-warning">Buy</a>
+                                    <a href="<?= site_url('Admin/Item_Produksi_A/production/' . $productions->id_produksi) ?>" class="btn btn-warning">Produksi</a>
                                     <a href="#modalDelete<?= $productions->id_produksi ?>" data-bs-toggle="modal" onclick="" class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>
