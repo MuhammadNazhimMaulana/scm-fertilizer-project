@@ -279,7 +279,7 @@ class Validation
 		],
 	];
 
-	// Bagian Insrt Orderan
+	// Bagian Insrt Produksi
 	public $production_item = [
 		'id_produksi' => [
 			'rules' => 'required',
@@ -297,5 +297,20 @@ class Validation
 			'required' => '{field} Harus diisi',
 		],
 	];
+
+	// Bagian Update Produksi
+	public $update_produksi = [
+		'tanggal_produksi' => [
+			'rules' => 'required',
+		],
+	];
+
+	public $update_produksi_errors = [
+		'tanggal_produksi' => [
+			'required' => '{field} Harus diisi',
+		],
+	];
+
+
 	//--------------------------------------------------------------------
 }

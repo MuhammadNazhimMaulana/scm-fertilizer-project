@@ -16,6 +16,13 @@ $create = [
     'class' => 'btn btn-outline-success'
 ];
 
+$nomor_pupuk = [
+    'name' => 'id_produk',
+    'id' => 'id_produk',
+    'options' => $daftar_produk,
+    'class' => 'form-control'
+];
+
 $submit = [
     'name' => 'submit',
     'value' => 'Cari',
@@ -35,17 +42,14 @@ $session = session();
             <div class="card-body">
 
                 <!-- Awal Create -->
-                <?= form_open('Admin/Produksi_A/create') ?>
                 <div class="input-group mb-3 justify-content-left">
-                    <?= form_submit($create) ?>
+                    <a href="#modalInsert" data-bs-toggle="modal" onclick="" class="btn btn-success">Insert Data</a>
                 </div>
-                <?= form_close() ?>
                 <!-- Akhir Create -->
 
                 <h5 class="card-title text-center mb-3">Daftar Seluruh Produksi</h5>
 
                 <!-- Awal Searching -->
-                <?= form_close() ?>
                 <?= form_open('Admin/Produksi_A/read') ?>
                 <div class="input-group mb-3 justify-content-end">
                     <div>
@@ -112,5 +116,34 @@ $session = session();
     </div>
 <?php endforeach ?>
 
+<!-- Modal Insert-->
+<div class="modal fade" id="modalInsert" tabindex="-1" data-bs-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Konfirmasi Produksi Produk</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <?= form_open('Admin/Produksi_A/create') ?>
 
-<?= $this->endSection() ?>
+                <div class="row">
+                    <div class="col-sm-12 input">
+                        <?= form_label("Nama Produk", "nomor_pupuk") ?>
+                        <?= form_dropdown($nomor_pupuk) ?>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <div class="d-flex justify-content-end mt-3">
+                    <!-- Form submit terkait submit-->
+                    <?= form_submit($create) ?>
+                </div>
+                <?= form_close() ?>
+            </div>
+        </div>
+    </div>
+
+
+    <?= $this->endSection() ?>

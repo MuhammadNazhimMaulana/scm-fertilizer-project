@@ -4,7 +4,9 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 
+use App\Models\Produk_M;
 use App\Models\Produksi_M;
+
 use App\Entities\Produksi_E;
 
 
@@ -32,14 +34,44 @@ class Produksi_A extends BaseController
             $keyword = $this->request->getPost('keyword');
         }
 
+        // Mendapatkan seluruh data Produk
+        $model_produks = new Produk_M();
+
+        $produk = $model_produks->findAll();
+        $list_produk = [null => 'Pilih Produk untuk Produksi'];
+
+        // Buat looping
+        foreach ($produk as $products) {
+            $list_produk[$products->id_produk] = $products->nama_pupuk;
+        }
+
         $data = [
             "produksi" => $model->like('tbl_produksi.tanggal_produksi', $keyword)->paginate(3, 'produksi'),
             "pager" => $model->pager,
             "title" => 'Produksi',
+            'daftar_produk' => $list_produk,
             "keyword" => $keyword
         ];
 
         return view('Admin_View/Produksi_View/view_produksi', $data);
+    }
+
+    public function view()
+    {
+        // Dapatkan Id dari segmen
+        $id_produksi = $this->request->uri->getSegment(4);
+
+        $model = new Produksi_M();
+
+        $produksi = $model->find($id_produksi);
+
+        // Data yang akan dikirim ke view specific
+        $data = [
+            "produksi" => $produksi,
+            "title" => 'Produksi'
+        ];
+
+        return view('Admin_View/Produksi_View/view_specific_produksi', $data);
     }
 
     public function create()
@@ -78,6 +110,7 @@ class Produksi_A extends BaseController
         $data_perubahan = $this->request->getPost();
 
         $produksi = new Produksi_E();
+        $produksi->id_produk = $this->request->getPost('nomor_pupuk');
         $produksi->id_produksi = $id_produksi;
         $produksi->fill($data_perubahan);
 
@@ -103,6 +136,28 @@ class Produksi_A extends BaseController
             "title" => 'Produksi',
             'produksi' => $produksi
         ];
+
+        if ($this->request->getPost()) {
+            $data_final = $this->request->getPost();
+            $this->validation->run($data_final, 'update_produksi');
+            $errors = $this->validation->getErrors();
+
+            if (!$errors) {
+                $produksi = new Produksi_E();
+                $produksi->id_produksi = $id_produksi;
+                $produksi->fill($data_final);
+
+                $produksi->produksi_selesai = date("Y-m-d");
+                $produksi->updated_at = date("Y-m-d H:i:s");
+
+                $model->save($produksi);
+
+                $segments = ['Admin', 'Produksi_A', 'view', $id_produksi];
+
+                return redirect()->to(site_url($segments));
+            }
+            $this->session->setFlashdata('errors', $errors);
+        }
 
         return view('Admin_View/Produksi_View/check_out_produksi', $data);
     }
