@@ -4,8 +4,13 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 
+// Produk
 use App\Models\Produk_M;
 use App\Models\Produksi_M;
+
+// Storage
+use App\Models\Storage_M;
+use App\Entities\Storage_E;
 
 use App\Entities\Produksi_E;
 
@@ -130,7 +135,7 @@ class Produksi_A extends BaseController
 
         $model = new Produksi_M();
 
-        $produksi = $model->find($id_produksi);
+        $produksi = $model->join('tbl_produk', 'tbl_produk.id_produk = tbl_produksi.id_produk')->where('tbl_produksi.id_produksi', $id_produksi)->first();
 
         $data = [
             "title" => 'Produksi',
@@ -143,16 +148,27 @@ class Produksi_A extends BaseController
             $errors = $this->validation->getErrors();
 
             if (!$errors) {
-                $produksi = new Produksi_E();
-                $produksi->id_produksi = $id_produksi;
-                $produksi->fill($data_final);
+                $production = new Produksi_E();
+                $production->id_produksi = $id_produksi;
+                $production->fill($data_final);
 
-                $produksi->produksi_selesai = date("Y-m-d");
-                $produksi->updated_at = date("Y-m-d H:i:s");
+                $production->produksi_selesai = date("Y-m-d");
+                $production->updated_at = date("Y-m-d H:i:s");
 
-                $model->save($produksi);
+                $model->save($production);
 
-                $segments = ['Admin', 'Produksi_A', 'view', $id_produksi];
+                // Menyimpan hasil produksi ke Storage
+                $model_storage = new Storage_M();
+
+                $storage = new Storage_E();
+                $storage->id_produksi = $id_produksi;
+                $storage->nama_produk = $produksi->nama_pupuk;
+                $storage->tanggal_simpan = date("Y-m-d");
+                $storage->created_at = date("Y-m-d H:i:s");
+
+                $model_storage->save($storage);
+
+                $segments = ['Admin', 'Storage_A', 'read'];
 
                 return redirect()->to(site_url($segments));
             }

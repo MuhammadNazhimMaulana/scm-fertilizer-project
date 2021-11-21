@@ -10,6 +10,15 @@ $id_produksi = [
     'class' => 'form-control'
 ];
 
+$id_produk = [
+    'name' => 'id_produk',
+    'id' => 'id_produk',
+    'type' => 'hidden',
+    'readonly' => true,
+    'value' => $production->id_produk,
+    'class' => 'form-control'
+];
+
 $tanggal_produksi = [
     'name' => 'tanggal_produksi',
     'id' => 'tanggal_produksi',
@@ -163,6 +172,7 @@ $errors = $session->getFlashdata('errors');
 
             <div class="col-sm-4">
                 <?= form_input($penggunaan_item) ?>
+                <?= form_input($id_produk) ?>
             </div>
 
             <div class="d-flex justify-content-center mt-3">
