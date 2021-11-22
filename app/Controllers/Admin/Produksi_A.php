@@ -162,6 +162,7 @@ class Produksi_A extends BaseController
 
                 $storage = new Storage_E();
                 $storage->id_produksi = $id_produksi;
+                $storage->isi_storage = $this->request->getPost('hasil_produksi');
                 $storage->nama_produk = $produksi->nama_pupuk;
                 $storage->tanggal_simpan = date("Y-m-d");
                 $storage->created_at = date("Y-m-d H:i:s");

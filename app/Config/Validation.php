@@ -311,6 +311,45 @@ class Validation
 		],
 	];
 
+	// Bagian Update Produksi
+	public $update_storage = [
+		'nama_produk' => [
+			'rules' => 'required',
+		],
+	];
+
+	public $update_storage_errors = [
+		'nama_produk' => [
+			'required' => '{field} Harus diisi',
+		],
+	];
+
+	// Bagian Update Produksi
+	public $pengiriman = [
+		'nama_penerima' => [
+			'rules' => 'required',
+		],
+	];
+
+	public $pengiriman_errors = [
+		'nama_penerima' => [
+			'required' => '{field} Harus diisi',
+		],
+	];
+
+	// Bagian Update Produksi
+	public $update_pengiriman = [
+		'nama_penerima' => [
+			'rules' => 'required',
+		],
+	];
+
+	public $update_pengiriman_errors = [
+		'nama_penerima' => [
+			'required' => '{field} Harus diisi',
+		],
+	];
+
 
 	//--------------------------------------------------------------------
 }

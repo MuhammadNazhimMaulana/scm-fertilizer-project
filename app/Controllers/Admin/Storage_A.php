@@ -28,8 +28,7 @@ class Storage_A extends BaseController
 
         $keyword = '';
 
-        if($this->request->getPost())
-        {
+        if ($this->request->getPost()) {
             $keyword = $this->request->getPost('keyword');
         }
 
@@ -46,105 +45,66 @@ class Storage_A extends BaseController
     public function view()
     {
         // Dapatkan Id dari segmen
-        $id_produk = $this->request->uri->getSegment(4);
+        $id_storage = $this->request->uri->getSegment(4);
 
         $model = new Storage_M();
 
-      $produk = $model->find($id_produk);
+        $storage = $model->find($id_storage);
 
         // Data yang akan dikirim ke view specific
         $data = [
-            "produk" =>$produk,
-            "title" => 'Produk'
+            "storage" => $storage,
+            "title" => 'Storage'
         ];
 
-        return view('Admin_View/Storage_View/view_specific_produk', $data);
+        return view('Admin_View/Storage_View/view_specific_storage', $data);
     }
 
-    public function create()
-    {
-        $data_produk = [
-            "title" => 'Produk'
-        ];
-
-        if ($this->request->getPost()) {
-            // Jikalau ada data di post
-            $data = $this->request->getPost();
-            $this->validation->run($data, 'produk');
-            $errors = $this->validation->getErrors();
-
-            if (!$errors) {
-
-                // Simpan data
-                $model = new Storage_M();
-
-              $produk = new Produk_E();
-
-                // Fill untuk assign value data kecuali gambar
-              $produk->fill($data);
-              $produk->created_at = date("Y-m-d H:i:s");
-
-                $model->save($produk);
-
-                $id_produk = $model->insertID();
-
-
-                $segments = ['Admin', 'Produk_A', 'view', $id_produk];
-    
-                // Akan redirect ke /Admin/Rak_A/view/$id_barang
-                return redirect()->to(site_url($segments));
-
-            }
-            $this->session->setFlashdata('errors', $errors);
-        }
-        return view('Admin_View/Storage_View/create_produk', $data_produk);
-    }
 
     public function update()
     {
-        $id_produk = $this->request->uri->getSegment(4);
+        $id_storage = $this->request->uri->getSegment(4);
 
         $model = new Storage_M();
 
-      $produk = $model->find($id_produk);
+        $storage = $model->find($id_storage);
 
         $data = [
-            'produk' =>$produk,
-            "title" => 'Produk'
+            'storage' => $storage,
+            "title" => 'Storage'
         ];
 
         if ($this->request->getPost()) {
-            $data_pesanan = $this->request->getPost();
-            $this->validation->run($data_pesanan, 'produk_update');
+            $data_storage = $this->request->getPost();
+            $this->validation->run($data_storage, 'update_storage');
             $errors = $this->validation->getErrors();
 
             if (!$errors) {
-              $produk = new Produk_E();
-              $produk->id_produk = $id_produk;
-              $produk->fill($data_pesanan);
+                $storage = new Storage_E();
+                $storage->id_storage = $id_storage;
+                $storage->fill($data_storage);
 
-              $produk->updated_at = date("Y-m-d H:i:s");
+                $storage->updated_at = date("Y-m-d H:i:s");
 
-                $model->save($produk);
+                $model->save($storage);
 
-                $segments = ['Admin', 'Produk_A', 'view', $id_produk];
+                $segments = ['Admin', 'Storage_A', 'view', $id_storage];
 
                 return redirect()->to(site_url($segments));
             }
         }
 
-        return view('Admin_View/Storage_View/update_produk', $data);
+        return view('Admin_View/Storage_View/update_storage', $data);
     }
 
     public function delete()
     {
-        $id_produk = $this->request->uri->getSegment(4);
+        $id_storage = $this->request->uri->getSegment(4);
 
         $model = new Storage_M();
 
-        $delete = $model->delete($id_produk);
+        $delete = $model->delete($id_storage);
 
-        return redirect()->to(site_url('Admin/Produk_A/read'));
+        return redirect()->to(site_url('Admin/Storage_A/read'));
     }
-
 }
